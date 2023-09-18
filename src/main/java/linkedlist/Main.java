@@ -19,6 +19,11 @@ public class Main {
         linkedList.display();
         linkedList.add(300, 7);
         linkedList.display();
-
+        System.out.println(linkedList.removeFirst());
+        linkedList.display();
+        System.out.println(linkedList.removeLast());
+        linkedList.display();
+        System.out.println(linkedList.remove(2));
+        linkedList.display();
     }
 }

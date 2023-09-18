@@ -79,7 +79,71 @@ public class LinkedList {
 
         }
     }
-    
+
+    public int removeFirst() {
+        if (isEmpty()) {
+            throw new RuntimeException("Linked List is empty!");
+        }
+        // Lấy ra head hiện tại -> tìm ra head next
+        Node currentHead = head;
+        Node headNext = currentHead.getNext();
+        // Set head -> next về null
+        currentHead.setNext(null);
+        // Gán head => về headNext (trở thành head hiện tại)
+        head = headNext;
+        size--;
+        return currentHead.getData();
+    }
+
+    public int removeLast() {
+        if (isEmpty()) {
+            throw new RuntimeException("Linked List is empty!");
+        }
+        // Phần tử cuối là phần tử có next = null
+        if (size() == 1) {
+            return removeFirst();
+        } else {
+            // Phần tử gần cuối
+            Node nearLastNode = head;
+            while (nearLastNode.getNext().getNext() != null) {
+                nearLastNode = nearLastNode.getNext();
+            }
+            // Phần tử cuối
+            Node lastNode = nearLastNode.getNext();
+            // Bỏ liên kết -> phần tử gần cuối -> đến ptử cuối
+            nearLastNode.setNext(null);
+            // Giam kich thuoc 1 don vu
+            size--;
+            return lastNode.getData();
+        }
+    }
+
+    public int remove(int position) {
+        if (position == 0) {
+            return removeFirst();
+        } else if (position == size - 1) {
+            return removeLast();
+        } else if (position >= size || position < 0) {
+            throw new RuntimeException("Vị trí không hợp lệ!");
+        } else {
+            Node previousNode = null; // vi tri position -1
+            for (int i = 0; i <= position - 1; i++) {
+                if (previousNode == null) {
+                    previousNode = head;
+                } else {
+                    previousNode = previousNode.getNext();
+                }
+            }
+            Node currentNode = previousNode.getNext();
+            Node nextNode = currentNode.getNext();
+
+            previousNode.setNext(nextNode);
+            currentNode.setNext(null);
+            return currentNode.getData();
+        }
+    }
+
+
     public void display() {
         System.out.print("Linked list: ");
         Node j = null;
